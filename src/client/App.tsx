@@ -9,6 +9,8 @@ import Grid from '@material-ui/core/Grid';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import RestoreIcon from '@material-ui/icons/Restore';
 import Badge from '@material-ui/core/Badge';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 // Styles
 import { Wrapper, StyledButton, StyledAppBar, HeaderTypography } from './App.styles';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
@@ -30,6 +32,15 @@ const getCheeses = async (): Promise<CartItemType[]> =>
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
+
+  const [itemTitle, setItemTitle] = useState("");
+  const [itemPrice, setItemPrice] = useState(0);
+  const [itemDescription, setItemDescription] = useState("");
+  const [itemCategory, setItemCategory] = useState("");
+  const [itemImage, setItemImage] = useState("");
+
+  const [showDialog, setShowDialog] = useState(false);
+
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     'cheeses',
     getCheeses
@@ -68,6 +79,20 @@ const App = () => {
       }, [] as CartItemType[])
     );
   };
+
+  const handleShowItemDetail = (clickedItem: CartItemType) => {
+    setShowDialog(true);
+    setItemTitle(clickedItem.title);
+    setItemPrice(clickedItem.price);    
+    setItemDescription(clickedItem.description);
+    setItemCategory(clickedItem.category);
+    setItemImage(clickedItem.image);
+    console.log("Handle Reached!")
+  };
+
+  const closeDialog = () => {
+    setShowDialog(false);
+  }
 
   if (isLoading) return <LinearProgress />;
   if (error) return <div>Something went wrong ...</div>;
@@ -122,10 +147,21 @@ const App = () => {
       <Grid container spacing={3}>
         {data?.map(item => (
           <Grid item key={item.id} xs={12} sm={4}>
-            <Item item={item} handleAddToCart={handleAddToCart} />
+            <Item item={item} handleAddToCart={handleAddToCart} handleShowItemDetail={handleShowItemDetail}/>
           </Grid>
         ))}
       </Grid>
+
+      <Dialog open={showDialog} onClose={closeDialog}>
+            <DialogTitle>{itemTitle}</DialogTitle>
+            <img src={itemImage} alt={itemTitle}/>
+            <div>
+              <h3>{itemDescription}</h3>
+              <h4>{itemCategory}</h4>
+              <h3>{itemPrice}</h3>
+            </div>            
+      </Dialog>
+
     </Wrapper>
 
   );
