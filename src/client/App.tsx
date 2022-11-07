@@ -97,18 +97,14 @@ const App = () => {
     setItemDescription(clickedItem.description);
     setItemCategory(clickedItem.category);
     setItemImage(clickedItem.image);
-    console.log("Task1 Done!")
   };
 
   const purchaseItem = (cartItemsPurchased: CartItemType[]) => {
     postPurchases(cartItemsPurchased);
-    console.log(cartItemsPurchased);
 
     // Reset the cart after purchased
     setCartItems([]);
     setCartOpen(false);  
-
-    console.log("Task2 Done!")
   }
 
   if (isLoading) return <LinearProgress />;
@@ -175,7 +171,7 @@ const App = () => {
       <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
             <DialogTitle>{itemTitle}</DialogTitle>
             <img src={itemImage} alt={itemTitle}/>
-            <div>
+            <div style={{paddingLeft:10}}>
               <h3>{itemDescription}</h3>
               <h4>{itemCategory}</h4>
               <h3>{itemPrice}</h3>

@@ -30,12 +30,10 @@ router.get('/api/cheeses', (req, res, next) => {
 router.post('/api/purchases', jsonParser, (req, res, next) => {
     purchasedItems.push(req.body);
     console.log(purchasedItems);
-    // console.log("post received: ", purchasedItems);
 });
 
 // Get recent purchases
 router.get('/api/purchases', (req, res, next) => {
-    // console.log("getPurchases reached!!!");
     res.json(purchasedItems);
 });
 

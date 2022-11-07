@@ -12,6 +12,7 @@ RUN npm install --force
 # Copy source code to working directory
 COPY . ./
 
+# Expose to port 9000
 EXPOSE 9000
 
 # Start command as per package.json
