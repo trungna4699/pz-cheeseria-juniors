@@ -11,6 +11,7 @@ import RestoreIcon from '@material-ui/icons/Restore';
 import Badge from '@material-ui/core/Badge';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import RecentPurchases from './RecentPurchases/RecentPurchases';
 // Styles
 import { Wrapper, StyledButton, StyledAppBar, HeaderTypography } from './App.styles';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
@@ -48,12 +49,13 @@ const App = () => {
   const [itemImage, setItemImage] = useState("");
 
   const [showDialog, setShowDialog] = useState(false);
+  const [showRecentPurchases , setShowRecentPurchases] = useState(false); 
 
   const { data, isLoading, error } = useQuery<CartItemType[]>(
     'cheeses',
     getCheeses
   );
-  console.log(data);
+  console.log("1st data: ",data);
 
   const getTotalItems = (items: CartItemType[]) =>
     items.reduce((ack: number, item) => ack + item.amount, 0);
@@ -95,7 +97,7 @@ const App = () => {
     setItemDescription(clickedItem.description);
     setItemCategory(clickedItem.category);
     setItemImage(clickedItem.image);
-    // console.log("Handle Reached!")
+    console.log("Task1 Done!")
   };
 
   const purchaseItem = (cartItemsPurchased: CartItemType[]) => {
@@ -106,7 +108,7 @@ const App = () => {
     setCartItems([]);
     setCartOpen(false);  
 
-    console.log("reached purchase!!")
+    console.log("Task2 Done!")
   }
 
   if (isLoading) return <LinearProgress />;
@@ -177,6 +179,10 @@ const App = () => {
               <h3>{itemPrice}</h3>
             </div>            
       </Dialog>
+
+      <Drawer anchor='left' open={showRecentPurchases} onClose={() => setShowRecentPurchases(false)}>
+        <RecentPurchases/>
+      </Drawer>
 
     </Wrapper>
 

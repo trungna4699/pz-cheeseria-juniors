@@ -21,17 +21,21 @@ let purchasedItems: CartItemType[] = [];
 const cheeses = require('./data/cheeses.json');
 const router = express.Router();
 
+// Get cheeses details
 router.get('/api/cheeses', (req, res, next) => {
     res.json(cheeses);
 });
 
+// Send and store purchased orders
 router.post('/api/purchases', jsonParser, (req, res, next) => {
     purchasedItems.push(req.body);
-    console.log("post received: ", purchasedItems);
+    console.log(purchasedItems);
+    // console.log("post received: ", purchasedItems);
 });
 
+// Get recent purchases
 router.get('/api/purchases', (req, res, next) => {
-    console.log("getPurchases reached!!!");
+    // console.log("getPurchases reached!!!");
     res.json(purchasedItems);
 });
 
