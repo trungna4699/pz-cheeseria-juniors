@@ -29,6 +29,14 @@ export type CartItemType = {
 const getCheeses = async (): Promise<CartItemType[]> =>
   await (await fetch(`api/cheeses`)).json();
 
+const postPurchases = async (purchasedItems: CartItemType[]): Promise<CartItemType[]> => 
+  await (await fetch(`api/purchases`, {
+    method: 'POST' ,
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(purchasedItems)
+  })).json();
+
+
 const App = () => {
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([] as CartItemType[]);
@@ -87,11 +95,18 @@ const App = () => {
     setItemDescription(clickedItem.description);
     setItemCategory(clickedItem.category);
     setItemImage(clickedItem.image);
-    console.log("Handle Reached!")
+    // console.log("Handle Reached!")
   };
 
-  const closeDialog = () => {
-    setShowDialog(false);
+  const purchaseItem = (cartItemsPurchased: CartItemType[]) => {
+    postPurchases(cartItemsPurchased);
+    console.log(cartItemsPurchased);
+
+    // Reset the cart after purchased
+    setCartItems([]);
+    setCartOpen(false);  
+
+    console.log("reached purchase!!")
   }
 
   if (isLoading) return <LinearProgress />;
@@ -108,7 +123,7 @@ const App = () => {
             justify="space-between"
             alignItems="center"
           >
-            <StyledButton>
+            <StyledButton onClick={() => setShowRecentPurchases(true)}>
               <RestoreIcon />
               <Typography variant="subtitle2">
                 Recent Purchases
@@ -141,6 +156,7 @@ const App = () => {
           cartItems={cartItems}
           addToCart={handleAddToCart}
           removeFromCart={handleRemoveFromCart}
+          purchaseItem={purchaseItem}
         />
       </Drawer>
 
@@ -152,7 +168,7 @@ const App = () => {
         ))}
       </Grid>
 
-      <Dialog open={showDialog} onClose={closeDialog}>
+      <Dialog open={showDialog} onClose={() => setShowDialog(false)}>
             <DialogTitle>{itemTitle}</DialogTitle>
             <img src={itemImage} alt={itemTitle}/>
             <div>
