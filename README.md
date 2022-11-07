@@ -2,8 +2,9 @@
 
 ## Overview
 
-Help us complete our Cheese shopping cart.<br />
-So we can start selling cheese to the delight of our customers, we will need you to implement a few more desired features. As you can see, there is already some code to get you started. The backend server is using NodeJS and the frontend client is using ReactJS.<br />
+This is a basic website of Cheese shopping cart.<br />
+We can start selling cheese to the delight of our customers with a few more desired features. 
+The backend server is using NodeJS and the frontend client is using ReactJS.<br />
 
 Following are the features that have been added:
 
@@ -15,7 +16,7 @@ Following are the features that have been added:
 
 4. Add a UI automation test that performs the Purchase action you implemented as part of Feature #2. This test case is about adding two separate items to the cart and clicking on the **Purchase** button which is added as part of Feature #2. The automation test is performed by using Cypress.io tool-set.
 
-5. A Dockerfile has been added to create a Docker image for the project.
+5. Add a Dockerfile to create a Docker image for the project.
 
 ## Important Scripts
 
@@ -48,10 +49,14 @@ Before running the following commands, you need to have [Docker](https://docs.do
 
 To build the Docker image, you can run:
 
-### `docker build -t pz-cheeseria .`
+```bash
+docker build -t pz-cheeseria .
+```
 
 Then to run the image, you can run:
 
-### `docker run -p 9000:9000 pz-cheeseria`
+```bash
+docker run -p 9000:9000 pz-cheeseria
+```
 
 The browser will also be automatically launched under [http://localhost:9000](http://localhost:9000).
