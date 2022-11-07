@@ -34,6 +34,7 @@ const Cart: React.FC<Props> = ({ cartItems, addToCart, removeFromCart, purchaseI
           disableElevation
           variant='contained'
           onClick={() => purchaseItem(cartItems)}
+          data-cy={`purchase-items`}
         >
         Purchase
       </Button>

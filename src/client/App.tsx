@@ -125,7 +125,9 @@ const App = () => {
             justify="space-between"
             alignItems="center"
           >
-            <StyledButton onClick={() => setShowRecentPurchases(true)}>
+            <StyledButton 
+              onClick={() => setShowRecentPurchases(true)}
+              data-cy={`recent-purchases`}>
               <RestoreIcon />
               <Typography variant="subtitle2">
                 Recent Purchases

@@ -27,8 +27,8 @@ const RecentPurchases: React.FC<Props> = ({ }) => {
             <Wrapper key={index.toString()}>
                 <h3>Order: </h3>
                 {itemList?.map((item: CartItemType, itemIndex: any) => 
-                <div key={itemIndex}>
-                    <p>{item.title} x {item.amount}</p>                    
+                <div key={itemIndex} style={{paddingLeft:20}}>
+                    <p><span data-cy={`purchased-item-${item.title}`}>{item.title}</span> x {item.amount}</p>                    
                 </div>)}
                 <h4>Total: ${calculateTotal(itemList).toFixed(2)}</h4>
             </Wrapper>)}
